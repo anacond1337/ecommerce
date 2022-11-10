@@ -1,7 +1,8 @@
-import { Container, Typography, CircularProgress } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Container, Typography, CircularProgress } from '@mui/material';
 import SignalWifiBadIcon from '@mui/icons-material/SignalWifiBad';
+import Item from '../components/Item';
 
 async function fetchProducts() {
   const res = await fetch('https://fakestoreapi.com/products/');
@@ -15,6 +16,7 @@ function Home() {
     ['product'],
     fetchProducts,
   );
+
   console.log(data);
 
   if (isLoading) {
@@ -48,7 +50,16 @@ function Home() {
   }
   return (
     <Container>
-      
+      {data.map(((product) => (
+        <Item
+          key={product.id}
+          title={product.title}
+          image={product.image}
+          price={product.price}
+          description={product.description}
+          rating={product.rating}
+        />
+      )))}
     </Container>
   );
 }
