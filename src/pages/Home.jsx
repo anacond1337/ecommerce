@@ -1,6 +1,8 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Container, Typography, CircularProgress } from '@mui/material';
+import {
+  Container, Typography, CircularProgress, Grid,
+} from '@mui/material';
 import SignalWifiBadIcon from '@mui/icons-material/SignalWifiBad';
 import Item from '../components/Item';
 
@@ -16,8 +18,6 @@ function Home() {
     ['product'],
     fetchProducts,
   );
-
-  console.log(data);
 
   if (isLoading) {
     return (
@@ -49,17 +49,19 @@ function Home() {
     );
   }
   return (
-    <Container>
-      {data.map(((product) => (
-        <Item
-          key={product.id}
-          title={product.title}
-          image={product.image}
-          price={product.price}
-          description={product.description}
-          rating={product.rating}
-        />
-      )))}
+    <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Grid container spacing={2}>
+        {data.map(((product) => (
+          <Item
+            key={product.id}
+            title={product.title}
+            image={product.image}
+            price={product.price}
+            description={product.description}
+            rating={product.rating}
+          />
+        )))}
+      </Grid>
     </Container>
   );
 }
