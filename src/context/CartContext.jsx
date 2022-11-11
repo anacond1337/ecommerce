@@ -5,14 +5,35 @@ export const CartContext = createContext();
 
 export const cartReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD':
-
-      const found = state.content.find((element) => element === action.payload);
+    case 'ADD_ITEM': {
+      const found = state.content.find((element) => element.id === action.payload.id);
       if (found === undefined) {
-        return { ...state, content: [...state.content, action.payload] };
+        return { ...state, content: [...state.content, { ...action.payload, amount: 1 }] };
       }
       return state;
+    }
 
+    case 'INCREMENT': {
+      return {
+        content: state.content.map((element) => {
+          if (element.id === action.payload) {
+            return { ...element, amount: element.amount + 1 };
+          }
+          return element;
+        }),
+      };
+    }
+
+    case 'DECREMENT': {
+      return {
+        content: state.content.map((element) => {
+          if (element.id === action.payload) {
+            return { ...element, amount: element.amount - 1 };
+          }
+          return element;
+        }),
+      };
+    }
     default: return state;
   }
 };

@@ -9,6 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useNavigate, Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 
 const Search = styled('div')(({ theme }) => ({
@@ -53,18 +54,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function Navbar() {
   const { content } = useContext(CartContext);
+  const navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1, marginBottom: '2rem' }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            ECOMMERCE APP
-          </Typography>
+          <Link style={{ textDecoration: 'none', color: 'inherit' }} to="/">
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: 'none', sm: 'block' } }}
+            >
+              ECOMMERCE APP
+            </Typography>
+          </Link>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -75,7 +79,7 @@ function Navbar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" color="inherit">
+            <IconButton size="large" color="inherit" onClick={() => navigate('/cart')}>
               <Badge badgeContent={content.length} color="error">
                 <ShoppingCartIcon />
               </Badge>
