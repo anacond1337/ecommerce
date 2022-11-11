@@ -1,14 +1,22 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Card,
   CardActions, CardContent, Grid, IconButton, Rating, Typography,
 } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { CartContext } from '../context/CartContext';
 
 function Item({
-  title, image, price, description, rating,
+  title, image, price, description, rating, id,
 }) {
+  const { dispatch } = useContext(CartContext);
+
+  function handleAddToCart() {
+    dispatch({ type: 'ADD', payload: id });
+  }
+
   return (
     <Grid item>
       <Card sx={{ width: 345, height: 500 }}>
@@ -28,7 +36,7 @@ function Item({
           </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: 'start' }}>
-          <IconButton>
+          <IconButton onClick={handleAddToCart}>
             <AddShoppingCartIcon />
           </IconButton>
           <Typography>{`${price} $`}</Typography>

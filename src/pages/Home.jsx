@@ -59,6 +59,7 @@ function Home() {
             price={product.price}
             description={product.description}
             rating={product.rating}
+            id={product.id}
           />
         )))}
       </Grid>
