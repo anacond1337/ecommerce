@@ -9,9 +9,8 @@ export const cartReducer = (state, action) => {
 
       const found = state.content.find((element) => element === action.payload);
       if (found === undefined) {
-        state.content.push(action.payload);
+        return { ...state, content: [...state.content, action.payload] };
       }
-      console.log(state.content);
       return state;
 
     default: return state;

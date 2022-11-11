@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,6 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { CartContext } from '../context/CartContext';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -51,6 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Navbar() {
+  const { content } = useContext(CartContext);
   return (
     <Box sx={{ flexGrow: 1, marginBottom: '2rem' }}>
       <AppBar position="static">
@@ -74,7 +76,7 @@ function Navbar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" color="inherit">
-              <Badge badgeContent={40} color="error">
+              <Badge badgeContent={content.length} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
