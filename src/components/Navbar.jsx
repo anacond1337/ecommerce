@@ -58,7 +58,7 @@ function Navbar() {
   const [input, setInput] = useState('');
 
   useEffect(() => {
-    dispatch({ type: 'INCREMENT', payload: input });
+    dispatch({ type: 'SEARCH', payload: input });
   }, [input]);
 
   return (

@@ -53,9 +53,9 @@ function Home() {
   return (
     <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'center' }}>
       <Grid container spacing={2}>
-        {data.map(((product) => {
-          if (searchField === '') {
-            return (
+        {data.map(((product) => (
+          (!searchField || product.title.toLowerCase().includes(searchField.toLowerCase()))
+            ? (
               <Item
                 key={product.id}
                 title={product.title}
@@ -66,25 +66,8 @@ function Home() {
                 id={product.id}
                 amount={0}
               />
-            );
-          }
-
-          if (product.title.includes(searchField)) {
-            return (
-              <Item
-                key={product.id}
-                title={product.title}
-                image={product.image}
-                price={product.price}
-                description={product.description}
-                rating={product.rating}
-                id={product.id}
-                amount={0}
-              />
-            );
-          }
-          return null;
-        }))}
+            ) : null
+        )))}
       </Grid>
     </Container>
   );
