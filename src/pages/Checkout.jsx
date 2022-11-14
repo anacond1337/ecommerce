@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,11 +14,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from '../components/AddressForm';
 import PaymentForm from '../components/PaymentForm';
 import Review from '../components/Review';
-import { CartContext } from '../context/CartContext';
 
 function Copyright() {
-  const { content } = useContext(CartContext);
-  console.log(content)
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
