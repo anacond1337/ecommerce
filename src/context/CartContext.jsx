@@ -1,5 +1,6 @@
 /* eslint-disable no-case-declarations */
-import React, { createContext, useReducer } from 'react';
+import React, { createContext } from 'react';
+import { useImmerReducer } from 'use-immer';
 
 export const CartContext = createContext();
 
@@ -28,10 +29,13 @@ export const cartReducer = (state, action) => {
       return {
         content: state.content.map((element) => {
           if (element.id === action.payload) {
+            if (element.amount === 1) {
+              return undefined;
+            }
             return { ...element, amount: element.amount - 1 };
           }
           return element;
-        }),
+        }).filter((e) => e),
       };
     }
 
@@ -47,7 +51,7 @@ export const cartReducer = (state, action) => {
 
 // eslint-disable-next-line react/prop-types
 export function CartContextProvider({ children }) {
-  const [state, dispatch] = useReducer(cartReducer, {
+  const [state, dispatch] = useImmerReducer(cartReducer, {
     content: [],
     searchField: '',
   });
