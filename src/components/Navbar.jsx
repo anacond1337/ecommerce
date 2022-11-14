@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -53,8 +53,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Navbar() {
-  const { content } = useContext(CartContext);
+  const { content, dispatch } = useContext(CartContext);
   const navigate = useNavigate();
+  const [input, setInput] = useState('');
+
+  useEffect(() => {
+    dispatch({ type: 'INCREMENT', payload: input });
+  }, [input]);
+
   return (
     <Box sx={{ flexGrow: 1, marginBottom: '2rem' }}>
       <AppBar position="static">
@@ -75,6 +81,8 @@ function Navbar() {
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
+              onChange={({ target }) => setInput(target.value)}
+              value={input}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

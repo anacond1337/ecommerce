@@ -34,6 +34,13 @@ export const cartReducer = (state, action) => {
         }),
       };
     }
+
+    case 'SEARCH': {
+      return {
+        content: state.content,
+        searchField: action.payload,
+      };
+    }
     default: return state;
   }
 };
@@ -42,6 +49,7 @@ export const cartReducer = (state, action) => {
 export function CartContextProvider({ children }) {
   const [state, dispatch] = useReducer(cartReducer, {
     content: [],
+    searchField: '',
   });
 
   return (
